@@ -1,14 +1,15 @@
 services:
   app:
-    build: .
-    ports:
-      - '3000:3000'
+    image: node:18-alpine
+    working_dir: /frieren-stats-site
     volumes:
-      - .:/wikiforge
-    depends_on:
-      - db
+      - .:/frieren-stats-site
+    build: .
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/mydatabase
+    ports:
+      - "3000:3000"
   db:
     image: postgres:14
     environment:
