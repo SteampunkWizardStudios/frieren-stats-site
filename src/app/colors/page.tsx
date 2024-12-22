@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { FavoriteColor } from "@prisma/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function ColorsPage() {
   const [colors, setColors] = useState<FavoriteColor[]>([]);
@@ -53,14 +55,16 @@ export default function ColorsPage() {
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        value={newColor}
-        onChange={(e) => setNewColor(e.target.value)}
-        placeholder="Add a new color"
-        className="text-black"
-      />
-      <button onClick={addColor}>Add Color</button>
+      <div className="flex w-full max-w-sm items-center space-x-2">
+        <Input
+          className="max-w-96"
+          type="text"
+          placeholder="Add a new color"
+          onChange={(e) => setNewColor(e.target.value)}
+          value={newColor}
+        />
+        <Button onClick={addColor}>Add Color</Button>
+      </div>
     </div>
   );
 }
