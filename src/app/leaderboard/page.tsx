@@ -50,6 +50,8 @@ export default function LeaderboardPage() {
   useEffect(() => {
     swapyRef.current = createSwapy(containerRef.current!, {
       manualSwap: true,
+      autoScrollOnDrag: true,
+      // dragAxis: "y",
     });
 
     swapyRef.current.onSwap((event) => {
