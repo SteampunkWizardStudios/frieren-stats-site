@@ -44,7 +44,8 @@ export default function LeaderboardPage() {
         slotItemMap,
         setSlotItemMap
       ),
-    [items]
+    [items] // eslint-disable-line react-hooks/exhaustive-deps
+	// TODO: Investigate the warning above
   );
 
   useEffect(() => {
