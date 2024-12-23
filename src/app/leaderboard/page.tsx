@@ -31,13 +31,16 @@ export default function LeaderboardPage() {
     () => utils.toSlottedItems(items, "id", slotItemMap),
     [items, slotItemMap]
   );
+
+  // TODO: Investigate TypeError: n.el().parentElement is null
+
   const swapyRef = useRef<Swapy | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(
     () =>
-      utils.dynamicSwapy(
+      utils.dynamicSwapy( // Can it be made static?
         swapyRef.current,
         items,
         "id",
