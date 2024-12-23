@@ -23,7 +23,7 @@ const initialItems: Character[] = [
 ];
 
 export default function LeaderboardPage() {
-  const [items, __setItems] = useState<Character[]>(initialItems);
+  const [items, _setItems] = useState<Character[]>(initialItems);
   const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>(
     utils.initSlotItemMap(items, "id")
   );
@@ -44,7 +44,7 @@ export default function LeaderboardPage() {
         slotItemMap,
         setSlotItemMap
       ),
-    [items]
+    [items, slotItemMap]
   );
 
   useEffect(() => {
