@@ -19,11 +19,11 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-	const { id } = await req.json();
-	await prisma.favoriteColor.delete({
-	  where: {
-		id,
-	  },
-	});
-	return NextResponse.json({ message: "Color deleted" }, { status: 200 });
-  }
+  const { id } = await req.json();
+  await prisma.favoriteColor.delete({
+    where: {
+      id,
+    },
+  });
+  return NextResponse.json({ message: "Color deleted" }, { status: 200 });
+}
