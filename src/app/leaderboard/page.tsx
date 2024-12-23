@@ -44,7 +44,7 @@ export default function LeaderboardPage() {
         slotItemMap,
         setSlotItemMap
       ),
-    [items, slotItemMap]
+    [items]
   );
 
   useEffect(() => {
