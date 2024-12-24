@@ -1,3 +1,5 @@
+import { Character } from "./page";
+
 type Tier = {
   name: string;
   color: `#${string}`;
@@ -13,20 +15,26 @@ const tiers: Tier[] = [
 
 export default function TierList() {
   return (
-    <div className="mt-8 mx-4">
-      {tiers.map((tier) => (
-        <div key={tier.name} className="mb-4 flex items-center">
-          <div
-            className="w-24 h-24 flex items-center justify-center text-black font-bold"
-            style={{ backgroundColor: tier.color }}
-          >
-            {tier.name} Tier
+    <div className="mt-8 flex justify-center">
+      <div className="w-4/5">
+        {tiers.map((tier) => (
+          <div key={tier.name} className="mb-4 flex">
+            <div
+              className="flex items-center justify-center text-white font-bold aspect-square" // TODO: it's not square idk why it doesn't work
+              style={{ backgroundColor: tier.color}}
+            >
+              {tier.name} Tier
+            </div>
+            <div className="flex-1 flex flex-wrap gap-2 ml-4 border border-gray-300 p-2">
+              <Character image="Sense_anime_portrait.webp" />
+              <Character image="Sense_anime_portrait.webp" />
+              <Character image="Sense_anime_portrait.webp" />
+			  <Character image="Sense_anime_portrait.webp" />
+              <Character image="Sense_anime_portrait.webp" />
+            </div>
           </div>
-          <div className="flex-1 flex flex-wrap gap-2 ml-4 border border-gray-300 p-2 w-24 h-24">
-            {/* Characters for this tier will go here */}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
