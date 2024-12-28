@@ -5,15 +5,12 @@ import { Tier as TierType, Character } from "@/lib/types";
 type TierProps = {
   tier: TierType;
   characters: Character[];
-  getCharacterMap: () => Record<string, string>;
 };
 
-export function Tier({ tier, characters, getCharacterMap }: TierProps) {
+export function Tier({ tier, characters }: TierProps) {
   const { setNodeRef } = useDroppable({
     id: tier.id,
   });
-
-  const characterMap = getCharacterMap();
 
   return (
     <div className="flex items-center">
@@ -22,13 +19,13 @@ export function Tier({ tier, characters, getCharacterMap }: TierProps) {
       </h2>
       <div
         ref={setNodeRef}
-        className="flex flex-wrap gap-2 p-2 rounded-lg bg-neutral-700 flex-1 min-h-[100px]"
+        className="flex flex-wrap gap-2 p-2 rounded-lg bg-neutral-800 flex-1 min-h-[100px]"
       >
         {characters.map((character) => (
           <CharacterCard
             key={character.id}
             character={character}
-            imagePath={characterMap[character.id]}
+            imagePath={`/characters/${character.image}`}
           />
         ))}
       </div>
