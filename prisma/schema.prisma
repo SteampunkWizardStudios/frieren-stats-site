@@ -17,3 +17,36 @@ model FavoriteColor {
   id    Int    @id @default(autoincrement())
   color String
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  discordId String    @unique
+  rankings  Ranking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Character {
+  id      String    @id
+  Ranking Ranking[]
+
+  @@index([id])
+}
+
+model Ranking {
+  id          Int    @id @default(autoincrement())
+  userId      Int
+  characterId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rank Int // 1 is highest
+
+  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Character Character @relation(fields: [characterId], references: [id])
+
+  @@unique([userId, characterId]) // A user can only rank a character once
+  @@unique([userId, rank]) // A user can only have one character at each rank
+}
