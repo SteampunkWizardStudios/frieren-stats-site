@@ -1,4 +1,4 @@
-import { characterImages } from "@/utils/getCharImgs";
+import { getCharacterFilePaths } from "@/utils/getCharImgs";
 import TierList from "./TierList";
 import Image from "next/image";
 
@@ -11,11 +11,12 @@ export default function RankPage() {
   );
 }
 
-function CharacterZone() {
+async function CharacterZone() {
+  const characterFilePaths = await getCharacterFilePaths();
   return (
     <div className="flex items-end justify-center">
       <div className="flex flex-wrap gap-2 w-4/5 mx-auto justify-center border-red-500 border-2">
-        {characterImages.map((image) => (
+        {characterFilePaths.map((image) => (
           <Character key={image} image={image} />
         ))}
       </div>

@@ -3,30 +3,29 @@
 import { cn, getPositionBorder, getPositionText } from "@/lib/utils";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createSwapy, utils, type SlotItemMapArray, type Swapy } from "swapy";
+import { getCharacterMap } from "@/utils/getCharImgs";
 
 type Character = {
   id: string;
   title: string;
 };
 
-const initialItems: Character[] = [
-  { id: "frieren", title: "Frieren" },
-  { id: "fern", title: "Fern" },
-  { id: "stark", title: "Stark" },
-  { id: "himmel", title: "Himmel" },
-  { id: "eisen", title: "Eisen" },
-  { id: "heiter", title: "Heiter" },
-  { id: "ubel", title: "Übel" },
-  { id: "land", title: "Land" },
-  { id: "sense", title: "Sense" },
-  { id: "serie", title: "Serie" },
-];
-
 export default function LeaderboardPage() {
-  const [items, _setItems] = useState<Character[]>(initialItems);
-  const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>(
-    utils.initSlotItemMap(items, "id")
-  );
+  const [items, setItems] = useState<Character[]>([]);
+  const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>([]);
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      const charMap = await getCharacterMap();
+      const initialItems: Character[] = Object.entries(charMap).map(
+        ([id, title]) => ({ id, title })
+      );
+      setItems(initialItems);
+    };
+
+    fetchCharacters();
+  }, []);
+
   const slottedItems = useMemo(
     () => utils.toSlottedItems(items, "id", slotItemMap),
     [items, slotItemMap]
@@ -40,7 +39,8 @@ export default function LeaderboardPage() {
 
   useEffect(
     () =>
-      utils.dynamicSwapy( // Can it be made static?
+      utils.dynamicSwapy(
+        // Can it be made static?
         swapyRef.current,
         items,
         "id",
@@ -48,7 +48,7 @@ export default function LeaderboardPage() {
         setSlotItemMap
       ),
     [items] // eslint-disable-line react-hooks/exhaustive-deps
-	// TODO: Investigate the warning above
+    // TODO: Investigate the warning above
   );
 
   useEffect(() => {
