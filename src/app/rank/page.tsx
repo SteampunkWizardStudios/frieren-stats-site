@@ -1,4 +1,4 @@
-import { characterImages } from "./getCharImgs";
+import { characterImages } from "@/utils/getCharImgs";
 import TierList from "./TierList";
 import Image from "next/image";
 

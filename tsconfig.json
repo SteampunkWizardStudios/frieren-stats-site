@@ -19,7 +19,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@prismaClient": ["./src/prismaClient"]
+      "@prismaClient": ["./src/prismaClient"],
+	  "@utils": ["./src/utils"],
     },
     "target": "ESNext"
   },
