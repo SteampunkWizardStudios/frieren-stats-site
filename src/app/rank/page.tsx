@@ -6,7 +6,6 @@ export default function RankPage() {
   return (
     <>
       <TierList />
-      <CharacterZone />
     </>
   );
 }

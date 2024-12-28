@@ -40,7 +40,8 @@ export default function LeaderboardPage() {
 
   useEffect(
     () =>
-      utils.dynamicSwapy( // Can it be made static?
+      utils.dynamicSwapy(
+        // Can it be made static?
         swapyRef.current,
         items,
         "id",
@@ -48,13 +49,12 @@ export default function LeaderboardPage() {
         setSlotItemMap
       ),
     [items] // eslint-disable-line react-hooks/exhaustive-deps
-	// TODO: Investigate the warning above
+    // TODO: Investigate the warning above
   );
 
   useEffect(() => {
     swapyRef.current = createSwapy(containerRef.current!, {
       manualSwap: true,
-      autoScrollOnDrag: true,
       // dragAxis: "y",
     });
 

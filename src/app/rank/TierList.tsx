@@ -1,40 +1,93 @@
-import { Character } from "./page";
+"use client";
 
-type Tier = {
-  name: string;
-  color: `#${string}`;
+import { cn, getPositionBorder, getPositionText } from "@/lib/utils";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { createSwapy, utils, type SlotItemMapArray, type Swapy } from "swapy";
+
+type Character = {
+  id: string;
+  title: string;
 };
 
-const tiers: Tier[] = [
-  { name: "S", color: "#FF0000" },
-  { name: "A", color: "#FFA500" },
-  { name: "B", color: "#FFFF00" },
-  { name: "C", color: "#008000" },
-  { name: "D", color: "#0000FF" },
+const initialItems: Character[] = [
+  { id: "frieren", title: "Frieren" },
+  { id: "fern", title: "Fern" },
+  { id: "stark", title: "Stark" },
+  { id: "himmel", title: "Himmel" },
+  { id: "eisen", title: "Eisen" },
+  { id: "heiter", title: "Heiter" },
+  { id: "ubel", title: "Übel" },
+  { id: "land", title: "Land" },
+  { id: "sense", title: "Sense" },
+  { id: "serie", title: "Serie" },
 ];
 
 export default function TierList() {
+  const [items, _setItems] = useState<Character[]>(initialItems);
+  const [slotItemMap, setSlotItemMap] = useState<SlotItemMapArray>(
+    utils.initSlotItemMap(items, "id")
+  );
+  const slottedItems = useMemo(
+    () => utils.toSlottedItems(items, "id", slotItemMap),
+    [items, slotItemMap]
+  );
+
+  const swapyRef = useRef<Swapy | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(
+    () =>
+      utils.dynamicSwapy(
+        swapyRef.current,
+        items,
+        "id",
+        slotItemMap,
+        setSlotItemMap
+      ),
+    [items] // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  useEffect(() => {
+    swapyRef.current = createSwapy(containerRef.current!, {
+      manualSwap: true,
+      autoScrollOnDrag: true,
+    });
+
+    swapyRef.current.onSwap((event) => {
+      setSlotItemMap(event.newSlotItemMap.asArray);
+    });
+
+    swapyRef.current.onSwapEnd((event) => {
+      console.log("Swap ended", event.slotItemMap.asArray);
+    });
+
+    return () => {
+      swapyRef.current?.destroy();
+    };
+  }, []);
+
   return (
-    <div className="mt-8 flex justify-center">
-      <div className="w-4/5">
-        {tiers.map((tier) => (
-          <div key={tier.name} className="mb-4 flex">
-            <div
-              className="flex items-center justify-center text-white font-bold aspect-square" // TODO: it's not square idk why it doesn't work
-              style={{ backgroundColor: tier.color}}
-            >
-              {tier.name} Tier
+    <div className="flex flex-row gap-4" ref={containerRef}>
+      {slottedItems.map(({ itemId, item }, index) => (
+        <div className="slot" key={index} data-swapy-slot={index + 1}>
+          {item && (
+            <div data-swapy-item={itemId} key={itemId}>
+              <Character image="sense.webp" />
+              {item.title}
             </div>
-            <div className="flex-1 flex flex-wrap gap-2 ml-4 border border-gray-300 p-2">
-              <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
-			  <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
-            </div>
-          </div>
-        ))}
-      </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function Character({ image }: { image: string }) {
+  return (
+    <div className="relative size-24 border-purple-600 border-2">
+      <Image src={`/characters/${image}`} alt={image} fill objectFit="cover" />
     </div>
   );
 }
