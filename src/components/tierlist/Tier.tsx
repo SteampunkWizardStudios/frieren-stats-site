@@ -13,8 +13,8 @@ export function Tier({ tier, characters }: TierProps) {
   });
 
   return (
-    <div className="flex items-center">
-      <h2 className="w-24 text-xl font-semibold text-neutral-100 text-center">
+    <div className="flex items-center gap-4">
+      <h2 className={`w-24 h-24 text-xl font-semibold text-neutral-100 ${tier.color} text-center rounded-lg flex items-center justify-center`}>
         {tier.title}
       </h2>
       <div

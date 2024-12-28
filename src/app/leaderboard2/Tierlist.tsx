@@ -6,11 +6,11 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { Tier } from "@/components/tierlist/Tier";
 
 const TIERS: TierType[] = [
-  { id: "S", title: "S Tier" },
-  { id: "A", title: "A Tier" },
-  { id: "B", title: "B Tier" },
-  { id: "C", title: "C Tier" },
-  { id: "F", title: "F Tier" },
+  { id: "S", title: "S Tier", color: "bg-red-700" },
+  { id: "A", title: "A Tier", color: "bg-orange-700" },
+  { id: "B", title: "B Tier", color: "bg-yellow-700" },
+  { id: "C", title: "C Tier", color: "bg-green-700" },
+  { id: "F", title: "F Tier", color: "bg-purple-700" },
 ];
 
 interface Props {
@@ -36,14 +36,16 @@ export function ClientTierList({ initialCharacters }: Props) {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <div className="flex flex-col gap-4">
-        {TIERS.map((tier) => (
-          <Tier
-            key={tier.id}
-            tier={tier}
-            characters={characters.filter((char) => char.tier === tier.id)}
-          />
-        ))}
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="flex flex-col gap-4">
+          {TIERS.map((tier) => (
+            <Tier
+              key={tier.id}
+              tier={tier}
+              characters={characters.filter((char) => char.tier === tier.id)}
+            />
+          ))}
+        </div>
       </div>
     </DndContext>
   );
