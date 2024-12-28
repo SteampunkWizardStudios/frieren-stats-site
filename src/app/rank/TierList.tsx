@@ -26,11 +26,11 @@ export default function TierList() {
               {tier.name} Tier
             </div>
             <div className="flex-1 flex flex-wrap gap-2 ml-4 border border-gray-300 p-2">
-              <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
-			  <Character image="Sense_anime_portrait.webp" />
-              <Character image="Sense_anime_portrait.webp" />
+              <Character image="sense.webp" />
+              <Character image="sense.webp" />
+              <Character image="sense.webp" />
+			        <Character image="sense.webp" />
+              <Character image="sense.webp" />
             </div>
           </div>
         ))}
