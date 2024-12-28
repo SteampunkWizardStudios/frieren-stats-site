@@ -43,10 +43,19 @@ model Ranking {
   updatedAt DateTime @updatedAt
 
   rank Int // 1 is highest
+  tier Tier
 
   User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Character Character @relation(fields: [characterId], references: [id])
 
   @@unique([userId, characterId]) // A user can only rank a character once
   @@unique([userId, rank]) // A user can only have one character at each rank
+}
+
+enum Tier {
+  S
+  A
+  B
+  C
+  D
 }
