@@ -3,16 +3,15 @@ import { ClientTierList } from './Tierlist';
 
 async function getInitialCharacters() {
   const charMap = await getCharacterMap();
-  return Object.entries(charMap).map(([key, value], index) => ({
-    id: (index + 1).toString(),
-    name: value,
+  return Array.from(charMap.entries()).map(([key, value]) => ({
+    id: key,
+    name: value.name,
     tier: "F",
-    image: `${key}.webp`
+	major: value.major,
   }));
 }
 
 export default async function Page() {
   const initialCharacters = await getInitialCharacters();
-  //console.log(initialCharacters);
   return <ClientTierList initialCharacters={initialCharacters} />;
 }

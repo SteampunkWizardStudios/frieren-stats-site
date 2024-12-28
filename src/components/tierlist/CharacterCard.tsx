@@ -22,7 +22,7 @@ export function CharacterCard({ character, imagePath }: CharacterCardProps) {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className="cursor-grab rounded-lg bg-neutral-700 p-4 shadow-md flex items-center gap-4"
+      className={`cursor-grab rounded-lg ${character.major ? "bg-neutral-500": "bg-neutral-700"} p-4 shadow-md flex items-center gap-4`}
       style={style}
     >
       <img

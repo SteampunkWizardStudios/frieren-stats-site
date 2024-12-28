@@ -25,7 +25,7 @@ export function Tier({ tier, characters }: TierProps) {
           <CharacterCard
             key={character.id}
             character={character}
-            imagePath={`/characters/${character.image}`}
+            imagePath={`/characters/${character.id}.webp`}
           />
         ))}
       </div>
