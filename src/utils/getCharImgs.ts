@@ -9,6 +9,7 @@ const characterFilePaths = fs.readdirSync(charactersDir);
 const majorCharacters: Set<string> = new Set([
   "aura",
   "blei",
+  "demon_king",
   "denken",
   "draht",
   "dunste",
@@ -20,6 +21,7 @@ const majorCharacters: Set<string> = new Set([
   "flamme",
   "frieren",
   "genau",
+  "goddess_of_creation",
   "gorilla",
   "graf_granat",
   "heiter",
