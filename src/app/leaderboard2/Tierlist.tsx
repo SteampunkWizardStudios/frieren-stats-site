@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import type { Character, Tier as TierType } from "@/lib/types";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragStartEvent, DragOverlay } from "@dnd-kit/core";
 import { Tier } from "@/components/tierlist/Tier";
+import { CharacterCard } from "@/components/tierlist/CharacterCard";
 
 const TIERS: TierType[] = [
   { id: "S", title: "S Tier", color: "bg-red-700" },
@@ -19,9 +20,11 @@ interface Props {
 
 export function ClientTierList({ initialCharacters }: Props) {
   const [characters, setCharacters] = useState<Character[]>(initialCharacters);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
+	setActiveId(null);
     if (!over) return;
 
     const characterId = active.id as string;
@@ -34,8 +37,13 @@ export function ClientTierList({ initialCharacters }: Props) {
     );
   }
 
+  function handleDragStart(event: DragStartEvent) {
+  const { active } = event;
+  setActiveId(active.id as string);
+}
+
   return (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="flex flex-col gap-4">
           {TIERS.map((tier) => (
@@ -47,6 +55,14 @@ export function ClientTierList({ initialCharacters }: Props) {
           ))}
         </div>
       </div>
+	  <DragOverlay>
+    {activeId ? (
+      <CharacterCard
+        character={characters.find((char) => char.id === activeId)!}
+        imagePath={`/characters/${activeId}.webp`}
+      />
+    ) : null}
+  </DragOverlay>
     </DndContext>
   );
 }
