@@ -39,31 +39,17 @@ export function ClientTierList({ initialCharacters }: Props) {
     const characterId = active.id;
     const overId = over.id;
 
-    console.log(characterId, overId);
-
     let isSwitchingPositions = true;
     if (overId.toString().length === 1) {
       // This basically means the ID is 'A' or 'B' or 'C' etc. AKA a tier id
       isSwitchingPositions = false;
     }
 
-    // Trying to switch positions
+    // Switch positions
     if (isSwitchingPositions) {
       setCharacters((chars) => {
         const originalPos = getCharPos(characterId.toString());
         const newPos = getCharPos(overId.toString());
-
-        const currentTier = chars.find((char) => char.id === characterId)!.tier;
-        const newTier = chars.find((char) => char.id === overId)!.tier;
-
-        if (currentTier !== newTier) {
-          // Trying to switch tiers
-          setCharacters((chars) =>
-            chars.map((char) =>
-              char.id === characterId ? { ...char, tier: newTier } : char
-            )
-          );
-        }
 
         return arrayMove(chars, originalPos, newPos);
       });
