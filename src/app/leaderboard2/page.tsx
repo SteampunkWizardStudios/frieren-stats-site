@@ -1,5 +1,5 @@
-import { getCharacterMap } from '@/utils/getCharImgs';
-import { ClientTierList } from './Tierlist';
+import { getCharacterMap } from "@/utils/getCharImgs";
+import { ClientTierList } from "./Tierlist";
 
 async function getInitialCharacters() {
   const charMap = await getCharacterMap();
@@ -7,11 +7,12 @@ async function getInitialCharacters() {
     id: key,
     name: value.name,
     tier: "F",
-	major: value.major,
+    major: value.major,
   }));
 }
 
 export default async function Page() {
   const initialCharacters = await getInitialCharacters();
+
   return <ClientTierList initialCharacters={initialCharacters} />;
 }
