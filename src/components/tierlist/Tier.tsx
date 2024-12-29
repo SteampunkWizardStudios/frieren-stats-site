@@ -1,4 +1,3 @@
-import { useDroppable } from "@dnd-kit/core";
 import { CharacterCard } from "./CharacterCard";
 import { Tier as TierType, Character } from "@/lib/types";
 import { useSortable } from "@dnd-kit/sortable";

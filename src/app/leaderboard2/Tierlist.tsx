@@ -90,9 +90,8 @@ export function ClientTierList({ initialCharacters }: Props) {
         const originalPos = getCharPos(characterId.toString());
         const newPos = getCharPos(overId.toString());
 
-        const currentTier = chars.find((char) => char.id === characterId)!.tier;
+		const currentTier = chars.find((char) => char.id === characterId)!.tier;
         const newTier = chars.find((char) => char.id === overId)!.tier;
-
         if (currentTier !== newTier) {
           const updatedChars = chars.map((char) =>
             char.id === characterId ? { ...char, tier: newTier } : char
