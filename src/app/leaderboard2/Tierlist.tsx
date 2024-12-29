@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 import type { Character, Tier as TierType } from "@/lib/types";
-import { DndContext, DragEndEvent, DragStartEvent, DragOverlay } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+} from "@dnd-kit/core";
 import { Tier } from "@/components/tierlist/Tier";
 import { CharacterCard } from "@/components/tierlist/CharacterCard";
+import { arrayMove } from "@dnd-kit/sortable";
 
 const TIERS: TierType[] = [
   { id: "S", title: "S Tier", color: "bg-red-700" },
@@ -22,25 +28,47 @@ export function ClientTierList({ initialCharacters }: Props) {
   const [characters, setCharacters] = useState<Character[]>(initialCharacters);
   const [activeId, setActiveId] = useState<string | null>(null);
 
+  const getCharPos = (id: string) =>
+    characters.findIndex((char) => char.id === id);
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-	setActiveId(null);
+    setActiveId(null);
     if (!over) return;
 
-    const characterId = active.id as string;
-    const newTier = over.id as Character["tier"];
+    const characterId = active.id;
+    const overId = over.id;
 
-    setCharacters((chars) =>
-      chars.map((char) =>
-        char.id === characterId ? { ...char, tier: newTier } : char
-      )
-    );
+    let isSwitchingPositions = true;
+    if (overId.toString().length === 1) {
+      // This basically means the ID is 'A' or 'B' or 'C' etc. AKA a tier id
+      isSwitchingPositions = false;
+    }
+
+    // Switch positions
+    if (isSwitchingPositions) {
+      setCharacters((chars) => {
+        const originalPos = getCharPos(characterId.toString());
+        const newPos = getCharPos(overId.toString());
+
+        return arrayMove(chars, originalPos, newPos);
+      });
+    } else {
+      // Switch tiers
+      const newTier = over.id as Character["tier"];
+
+      setCharacters((chars) =>
+        chars.map((char) =>
+          char.id === characterId ? { ...char, tier: newTier } : char
+        )
+      );
+    }
   }
 
   function handleDragStart(event: DragStartEvent) {
-  const { active } = event;
-  setActiveId(active.id as string);
-}
+    const { active } = event;
+    setActiveId(active.id as string);
+  }
 
   return (
     <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
@@ -55,14 +83,14 @@ export function ClientTierList({ initialCharacters }: Props) {
           ))}
         </div>
       </div>
-	  <DragOverlay>
-    {activeId ? (
-      <CharacterCard
-        character={characters.find((char) => char.id === activeId)!}
-        imagePath={`/characters/${activeId}.webp`}
-      />
-    ) : null}
-  </DragOverlay>
+      <DragOverlay>
+        {activeId ? (
+          <CharacterCard
+            character={characters.find((char) => char.id === activeId)!}
+            imagePath={`/characters/${activeId}.webp`}
+          />
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

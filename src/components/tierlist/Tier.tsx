@@ -1,6 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { CharacterCard } from "./CharacterCard";
 import { Tier as TierType, Character } from "@/lib/types";
+import { useSortable } from "@dnd-kit/sortable";
 
 type TierProps = {
   tier: TierType;
@@ -8,13 +9,15 @@ type TierProps = {
 };
 
 export function Tier({ tier, characters }: TierProps) {
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef } = useSortable({
     id: tier.id,
   });
 
   return (
     <div className="relative flex items-center gap-4">
-      <h2 className={`absolute w-[7rem] h-[7rem] text-xl font-semibold text-neutral-100 ${tier.color} text-center rounded-lg flex items-center justify-center`}>
+      <h2
+        className={`absolute w-[7rem] h-[7rem] text-xl font-semibold text-neutral-100 ${tier.color} text-center rounded-lg flex items-center justify-center`}
+      >
         {tier.title}
       </h2>
       <div
