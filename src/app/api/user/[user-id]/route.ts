@@ -2,14 +2,17 @@ import prisma from "@/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 import type { Character } from "@/lib/types";
 import { Tier } from "@prisma/client";
+import type { ParsedUrlQuery } from 'querystring';
+import { url } from "inspector";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, { params }: { params: ParsedUrlQuery }) {
   const rankings: Character[] = await req.json();
 
-  const { searchParams } = new URL(req.url);
-  const userId = searchParams.get("user-id");
+  const urlParams = await params;
 
-  if (!userId || !Array.isArray(rankings)) {
+  const userId = urlParams["user-id"];
+
+  if (typeof userId !== "string" || !Array.isArray(rankings)) {
     return NextResponse.json(
       { error: "Invalid request body" },
       { status: 400 }
@@ -21,16 +24,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "userId is NaN" }, { status: 400 });
   }
 
-  try {
-    const formattedRankings = rankings.map((char: Character, index: number) => {
-      return {
-        userId: userIdNumber,
-        characterId: char.id,
-        rank: index + 1,
-        tier: Tier[char.tier as keyof typeof Tier],
-      };
-    });
+  const formattedRankings = rankings.map((char: Character, index: number) => {
+    return {
+      userId: userIdNumber,
+      characterId: char.id,
+      rank: index + 1,
+      tier: Tier[char.tier as keyof typeof Tier],
+    };
+  });
 
+  try {
     await prisma.$transaction([
       prisma.ranking.deleteMany({ where: { userId: userIdNumber } }),
       prisma.ranking.createMany({ data: formattedRankings }),

@@ -32,26 +32,21 @@ export function ClientTierList({ initialCharacters }: Props) {
 
   const saveRankings = async (updatedCharacters: Character[]) => {
     const session = await getSession();
-    console.log("Session: " + JSON.stringify(session)); // does not include an ID
+    // console.log("Session: " + JSON.stringify(session));
 
     if (!session || !session.user) {
       console.error("No session found");
       return;
     }
 
-    const userId = session.user.id;
+    //const userId = session.user.id; // currently undefined
+	const userId = 1; // TODO: get user ID from session
 
     const tierOrder = ["S", "A", "B", "C", "D", "F"]; // TODO: auto tier order
 
-    const sortedCharacters = [...updatedCharacters].sort((a, b) => {
-      const tierComparison =
-        tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier);
-      if (tierComparison !== 0) {
-        return tierComparison;
-      }
-
-      return characters.indexOf(a) - characters.indexOf(b);
-    });
+	const sortedCharacters = characters.sort((a, b) => {
+		return TIERS.findIndex(tier => tier.id === a.tier) - TIERS.findIndex(tier => tier.id === b.tier);
+	  });
 
     try {
       const response = await fetch(`/api/user/${userId}`, {
