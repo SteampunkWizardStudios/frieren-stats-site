@@ -13,13 +13,13 @@ export function Tier({ tier, characters }: TierProps) {
   });
 
   return (
-    <div className="flex items-center gap-4">
-      <h2 className={`w-24 h-24 text-xl font-semibold text-neutral-100 ${tier.color} text-center rounded-lg flex items-center justify-center`}>
+    <div className="relative flex items-center gap-4">
+      <h2 className={`absolute w-[7rem] h-[7rem] text-xl font-semibold text-neutral-100 ${tier.color} text-center rounded-lg flex items-center justify-center`}>
         {tier.title}
       </h2>
       <div
         ref={setNodeRef}
-        className="flex flex-wrap gap-2 p-2 rounded-lg bg-neutral-800 flex-1 min-h-[100px]"
+        className="flex flex-wrap gap-2 p-2 rounded-lg bg-neutral-800 flex-1 min-h-[7rem] ml-[8rem]"
       >
         {characters.map((character) => (
           <CharacterCard
