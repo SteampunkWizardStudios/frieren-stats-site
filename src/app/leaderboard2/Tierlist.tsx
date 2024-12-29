@@ -18,6 +18,7 @@ const TIERS: TierType[] = [
   { id: "A", title: "A Tier", color: "bg-orange-700" },
   { id: "B", title: "B Tier", color: "bg-yellow-700" },
   { id: "C", title: "C Tier", color: "bg-green-700" },
+  { id: "D", title: "D Tier", color: "bg-blue-700" },
   { id: "F", title: "F Tier", color: "bg-purple-700" },
 ];
 
@@ -31,6 +32,7 @@ export function ClientTierList({ initialCharacters }: Props) {
 
   const saveRankings = async (updatedCharacters: Character[]) => {
     const session = await getSession();
+    console.log("Session: " + JSON.stringify(session)); // does not include an ID
 
     if (!session || !session.user) {
       console.error("No session found");
@@ -39,7 +41,7 @@ export function ClientTierList({ initialCharacters }: Props) {
 
     const userId = session.user.id;
 
-    const tierOrder = ["S", "A", "B", "C", "F"];
+    const tierOrder = ["S", "A", "B", "C", "D", "F"]; // TODO: auto tier order
 
     const sortedCharacters = [...updatedCharacters].sort((a, b) => {
       const tierComparison =
@@ -90,7 +92,7 @@ export function ClientTierList({ initialCharacters }: Props) {
         const originalPos = getCharPos(characterId.toString());
         const newPos = getCharPos(overId.toString());
 
-		const currentTier = chars.find((char) => char.id === characterId)!.tier;
+        const currentTier = chars.find((char) => char.id === characterId)!.tier;
         const newTier = chars.find((char) => char.id === overId)!.tier;
         if (currentTier !== newTier) {
           const updatedChars = chars.map((char) =>
@@ -124,7 +126,7 @@ export function ClientTierList({ initialCharacters }: Props) {
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="flex justify-end mb-4">
           <button
-            className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-500 transition-colors"
             onClick={() => saveRankings(characters)}
           >
             Save
