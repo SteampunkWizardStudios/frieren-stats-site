@@ -1,6 +1,7 @@
 import type { Character } from "@/lib/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import Image from "next/image";
 
 type CharacterCardProps = {
   character: Character;
@@ -28,7 +29,7 @@ export function CharacterCard({ character, imagePath }: CharacterCardProps) {
       } p-4 shadow-md flex items-center gap-4`}
       style={style}
     >
-      <img
+      <Image
         src={imagePath}
         alt={character.name}
         className="h-16 w-16 rounded-full border-2 border-neutral-300"
