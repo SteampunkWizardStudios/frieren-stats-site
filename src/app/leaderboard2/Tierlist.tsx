@@ -42,9 +42,7 @@ export function ClientTierList({ initialCharacters }: Props) {
     //const userId = session.user.id; // currently undefined
 	const userId = 1; // TODO: get user ID from session
 
-    const tierOrder = ["S", "A", "B", "C", "D", "F"]; // TODO: auto tier order
-
-	const sortedCharacters = characters.sort((a, b) => {
+	const sortedCharacters = updatedCharacters.sort((a, b) => {
 		return TIERS.findIndex(tier => tier.id === a.tier) - TIERS.findIndex(tier => tier.id === b.tier);
 	  });
 
