@@ -130,7 +130,8 @@ export function ClientTierList({ initialCharacters }: Props) {
             <Tier
               key={tier.id}
               tier={tier}
-              characters={characters.filter((char) => char.tier === tier.id)}
+              characters={characters.filter((char) => char.tier === tier.id)
+              .sort(() => Math.random() - 0.5)}
             />
           ))}
         </div>

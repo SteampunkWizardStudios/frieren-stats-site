@@ -33,6 +33,8 @@ export function CharacterCard({ character, imagePath }: CharacterCardProps) {
         src={imagePath}
         alt={character.name}
         className="h-16 w-16 rounded-full border-2 border-neutral-300"
+        width={50}
+        height={50}
       />
       <h3 className="text-neutral-100 font-medium">{character.name}</h3>
     </div>
