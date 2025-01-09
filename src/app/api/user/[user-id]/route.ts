@@ -1,8 +1,6 @@
 import prisma from "@/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 import type { Character } from "@/lib/types";
-import type { Tier } from "@prisma/client";
-import type Error from "next/error";
 import { createCharacterRecords } from "@/lib/utils";
 
 export async function POST(
