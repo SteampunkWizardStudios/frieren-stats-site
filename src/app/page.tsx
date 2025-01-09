@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const session = await auth();
 const username = session?.user?.name ?? "Sign in first";
+const userId = session?.user?.id ?? "None";
 
 export default function Home() {
   return (
@@ -19,7 +20,9 @@ export default function Home() {
           priority
         />
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li>Your name: {username}</li>
+          <li>
+            Your name: {username} ({userId})
+          </li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">

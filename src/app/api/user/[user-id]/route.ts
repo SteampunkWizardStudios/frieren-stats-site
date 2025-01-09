@@ -2,10 +2,12 @@ import prisma from "@/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 import type { Character } from "@/lib/types";
 import { Tier } from "@prisma/client";
-import type { ParsedUrlQuery } from 'querystring';
-import { url } from "inspector";
+import type { ParsedUrlQuery } from "querystring";
 
-export async function POST(req: NextRequest, { params }: { params: ParsedUrlQuery }) {
+export async function POST(
+  req: NextRequest,
+  { params }: { params: ParsedUrlQuery }
+) {
   const rankings: Character[] = await req.json();
 
   const urlParams = await params;

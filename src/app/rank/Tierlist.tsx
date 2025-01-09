@@ -27,7 +27,8 @@ interface Props {
 }
 
 export function ClientTierList({ initialCharacters }: Props) {
-  const [characters, setCharacters] = useState(() => {
+  // TODO: add a type
+  const [characters, setCharacters] = useState<any[]>(() => {
     const savedCharacters = localStorage.getItem("characters");
     return savedCharacters ? JSON.parse(savedCharacters) : initialCharacters;
   });
@@ -39,15 +40,13 @@ export function ClientTierList({ initialCharacters }: Props) {
 
   const saveRankings = async (updatedCharacters: Character[]) => {
     const session = await getSession();
-    // console.log("Session: " + JSON.stringify(session));
 
     if (!session || !session.user) {
       console.error("No session found");
       return;
     }
 
-    //const userId = session.user.id; // currently undefined
-    const userId = 1; // TODO: get user ID from session
+    const userId = session.user.id;
 
     const sortedCharacters = updatedCharacters.sort((a, b) => {
       return (
