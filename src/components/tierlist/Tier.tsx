@@ -5,11 +5,13 @@ import { useSortable } from "@dnd-kit/sortable";
 type TierProps = {
   tier: TierType;
   characters: Character[];
+  disabled: boolean;
 };
 
-export function Tier({ tier, characters }: TierProps) {
+export function Tier({ tier, characters, disabled }: TierProps) {
   const { setNodeRef } = useSortable({
     id: tier.id,
+    disabled: disabled,
   });
 
   return (
@@ -25,6 +27,7 @@ export function Tier({ tier, characters }: TierProps) {
       >
         {characters.map((character) => (
           <CharacterCard
+            disabled={disabled}
             key={character.id}
             character={character}
             imagePath={`/characters/${character.id}.webp`}

@@ -12,6 +12,8 @@ import { Tier } from "@/components/tierlist/Tier";
 import { CharacterCard } from "@/components/tierlist/CharacterCard";
 import { arrayMove } from "@dnd-kit/sortable";
 import { getSession } from "next-auth/react";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const TIERS: TierType[] = [
   { id: "S", title: "S Tier", color: "bg-red-700" },
@@ -27,6 +29,7 @@ interface Props {
 }
 
 export function ClientTierList({ initialCharacters }: Props) {
+  const [loading, setLoading] = useState(false);
   // TODO: add a type
   const [characters, setCharacters] = useState<any[]>(() => {
     const savedCharacters = localStorage.getItem("characters");
@@ -39,6 +42,8 @@ export function ClientTierList({ initialCharacters }: Props) {
   }, [characters]);
 
   const saveRankings = async (updatedCharacters: Character[]) => {
+    setLoading(true);
+    console.log("Saving rankings...");
     const session = await getSession();
 
     if (!session || !session.user) {
@@ -69,6 +74,9 @@ export function ClientTierList({ initialCharacters }: Props) {
       }
     } catch (error) {
       console.error("Error saving rankings:", error);
+    } finally {
+      setLoading(false);
+      toast("Rankings saved successfully");
     }
   };
 
@@ -122,14 +130,14 @@ export function ClientTierList({ initialCharacters }: Props) {
     const { active } = event;
     setActiveId(active.id as string);
   };
-
   return (
     <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="flex justify-end mb-4">
           <button
-            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-500 transition-colors"
+            className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-500 transition-colors disabled:bg-neutral-500 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => saveRankings(characters)}
+            disabled={loading}
           >
             Save
           </button>
@@ -139,6 +147,7 @@ export function ClientTierList({ initialCharacters }: Props) {
             <Tier
               key={tier.id}
               tier={tier}
+              disabled={loading}
               characters={characters.filter((char) => char.tier === tier.id)}
             />
           ))}
@@ -147,6 +156,7 @@ export function ClientTierList({ initialCharacters }: Props) {
       <DragOverlay>
         {activeId ? (
           <CharacterCard
+            disabled={loading}
             character={characters.find((char) => char.id === activeId)!}
             imagePath={`/characters/${activeId}.webp`}
           />

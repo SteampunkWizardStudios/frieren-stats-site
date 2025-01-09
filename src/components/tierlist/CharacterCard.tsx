@@ -6,12 +6,18 @@ import Image from "next/image";
 type CharacterCardProps = {
   character: Character;
   imagePath: string;
+  disabled: boolean;
 };
 
-export function CharacterCard({ character, imagePath }: CharacterCardProps) {
+export function CharacterCard({
+  character,
+  imagePath,
+  disabled,
+}: CharacterCardProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useSortable({
       id: character.id,
+      disabled: disabled,
     });
 
   const style = {
