@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Character, Tier as TierType } from "@/lib/types";
 import {
   DndContext,
@@ -27,8 +27,15 @@ interface Props {
 }
 
 export function ClientTierList({ initialCharacters }: Props) {
-  const [characters, setCharacters] = useState<Character[]>(initialCharacters);
+  const [characters, setCharacters] = useState(() => {
+    const savedCharacters = localStorage.getItem("characters");
+    return savedCharacters ? JSON.parse(savedCharacters) : initialCharacters;
+  });
   const [activeId, setActiveId] = useState<string | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem("characters", JSON.stringify(characters));
+  }, [characters]);
 
   const saveRankings = async (updatedCharacters: Character[]) => {
     const session = await getSession();
@@ -40,11 +47,14 @@ export function ClientTierList({ initialCharacters }: Props) {
     }
 
     //const userId = session.user.id; // currently undefined
-	const userId = 1; // TODO: get user ID from session
+    const userId = 1; // TODO: get user ID from session
 
-	const sortedCharacters = updatedCharacters.sort((a, b) => {
-		return TIERS.findIndex(tier => tier.id === a.tier) - TIERS.findIndex(tier => tier.id === b.tier);
-	  });
+    const sortedCharacters = updatedCharacters.sort((a, b) => {
+      return (
+        TIERS.findIndex((tier) => tier.id === a.tier) -
+        TIERS.findIndex((tier) => tier.id === b.tier)
+      );
+    });
 
     try {
       const response = await fetch(`/api/user/${userId}`, {
@@ -130,8 +140,7 @@ export function ClientTierList({ initialCharacters }: Props) {
             <Tier
               key={tier.id}
               tier={tier}
-              characters={characters.filter((char) => char.tier === tier.id)
-              .sort(() => Math.random() - 0.5)}
+              characters={characters.filter((char) => char.tier === tier.id)}
             />
           ))}
         </div>
