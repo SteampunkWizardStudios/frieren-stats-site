@@ -76,7 +76,6 @@ export function ClientTierList({ initialCharacters }: Props) {
       console.error("Error saving rankings:", error);
     } finally {
       setLoading(false);
-      toast("Rankings saved successfully");
     }
   };
 
@@ -136,7 +135,13 @@ export function ClientTierList({ initialCharacters }: Props) {
         <div className="flex justify-end mb-4">
           <button
             className="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-500 transition-colors disabled:bg-neutral-500 disabled:opacity-50 disabled:cursor-not-allowed"
-            onClick={() => saveRankings(characters)}
+            onClick={() =>
+              toast.promise(saveRankings(characters), {
+                loading: "Saving rankings...",
+                success: "Rankings saved successfully!",
+                error: "Failed to save rankings",
+              })
+            }
             disabled={loading}
           >
             Save
