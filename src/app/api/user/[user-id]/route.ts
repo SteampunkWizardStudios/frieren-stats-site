@@ -1,17 +1,16 @@
 import prisma from "@/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 import type { Character } from "@/lib/types";
-import { Tier } from "@prisma/client";
-import type { ParsedUrlQuery } from "querystring";
+import type { Tier } from "@prisma/client";
+import type Error from "next/error";
+import { createCharacterRecords } from "@/lib/utils";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: ParsedUrlQuery }
+  { params }: { params: { "user-id": string } }
 ) {
-  const rankings: Character[] = await req.json();
-
+  const rankings = (await req.json()) as Character[];
   const urlParams = await params;
-
   const userId = urlParams["user-id"];
 
   if (typeof userId !== "string" || !Array.isArray(rankings)) {
@@ -21,37 +20,27 @@ export async function POST(
     );
   }
 
-  const userIdNumber = parseInt(userId, 10);
-  if (isNaN(userIdNumber)) {
-    return NextResponse.json({ error: "userId is NaN" }, { status: 400 });
-  }
-
-  const formattedRankings = rankings.map((char: Character, index: number) => {
-    return {
-      userId: userIdNumber,
-      characterId: char.id,
-      rank: index + 1,
-      tier: Tier[char.tier as keyof typeof Tier],
-    };
-  });
+  await createCharacterRecords();
 
   try {
-    await prisma.$transaction([
-      prisma.ranking.deleteMany({ where: { userId: userIdNumber } }),
-      prisma.ranking.createMany({ data: formattedRankings }),
-    ]);
+    const formattedRankings = rankings.map((char, index) => ({
+      userId,
+      characterId: char.id,
+      rank: index + 1,
+      tier: char.tier,
+    }));
 
-    return NextResponse.json(
-      { message: "Rankings saved successfully" },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Error saving rankings:", error);
+    await prisma.ranking.deleteMany({ where: { userId } });
+    await prisma.ranking.createMany({
+      data: formattedRankings,
+    });
+
+    return NextResponse.json({ message: "Rankings saved successfully" });
+  } catch (error: any) {
+    console.log("Error saving rankings:", error.stack);
     return NextResponse.json(
       { error: "Failed to save rankings" },
       { status: 500 }
     );
   }
 }
-
-// Changed to route handler (for app router projects)

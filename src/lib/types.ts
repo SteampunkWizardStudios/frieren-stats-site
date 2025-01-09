@@ -1,3 +1,5 @@
+import { Tier as PrismaTier } from "@prisma/client";
+
 export type Tier = {
   id: string;
   title: string;
@@ -7,6 +9,6 @@ export type Tier = {
 export type Character = {
   id: string;
   name: string;
-  tier: string;
+  tier: PrismaTier;
   major: boolean;
 };

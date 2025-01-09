@@ -19,9 +19,8 @@ model FavoriteColor {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  discordId String    @unique
-  rankings  Ranking[]
+  id       String    @id
+  rankings Ranking[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -29,14 +28,12 @@ model User {
 
 model Character {
   id      String    @id
-  Ranking Ranking[]
-
-  @@index([id])
+  ranking Ranking[]
 }
 
 model Ranking {
   id          Int    @id @default(autoincrement())
-  userId      Int
+  userId      String
   characterId String
 
   createdAt DateTime @default(now())
@@ -45,11 +42,8 @@ model Ranking {
   rank Int // 1 is highest
   tier Tier
 
-  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Character Character @relation(fields: [characterId], references: [id])
-
-  @@unique([userId, characterId]) // A user can only rank a character once
-  @@unique([userId, rank]) // A user can only have one character at each rank
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  character Character @relation(fields: [characterId], references: [id])
 }
 
 enum Tier {
