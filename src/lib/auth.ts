@@ -6,6 +6,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Discord],
   callbacks: {
     async signIn({ profile }) {
+      console.log(profile);
       if (profile && profile.id) {
         const dbUser = await prisma.user.findUnique({
           where: {
@@ -17,6 +18,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           await prisma.user.create({
             data: {
               id: profile.id,
+              username: profile.username as string,
+              name: profile.global_name as string,
+              avatar: profile.image_url as string,
             },
           });
         }

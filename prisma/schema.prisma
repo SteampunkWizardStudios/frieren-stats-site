@@ -21,6 +21,9 @@ model FavoriteColor {
 model User {
   id       String    @id
   rankings Ranking[]
+  username String
+  name     String
+  avatar   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
