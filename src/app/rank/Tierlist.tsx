@@ -46,7 +46,7 @@ export function ClientTierList({ initialCharacters }: Props) {
     console.log("Saving rankings...");
     const session = await getSession();
 
-    if (!session || !session.user) {
+    if (!session || !session.user || !session.user.id) {
       console.error("No session found");
       return;
     }
