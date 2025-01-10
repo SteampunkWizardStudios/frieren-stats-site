@@ -1,6 +1,5 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Tier } from "@/components/tierlist/Tier";
 import { type Tier as TierEnum } from "@prisma/client";
@@ -25,27 +24,23 @@ type UserRankings = {
 }[];
 
 export default function Page() {
-  const params = useParams();
-  let userId = params.userid;
-
   const [rankings, setRankings] = useState<UserRankings>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRankings = async () => {
-      // TODO: fetch api using userId to see if its actually a user id
-      if (!userId) {
+      try {
         const session = await getSession();
-        if (session && session.user) {
-          userId = session.user.id;
-        } else {
+        if (!session || !session.user?.id) {
           setError("No user ID found");
+          setLoading(false);
           return;
         }
-      }
 
-      try {
+        const userId = session.user.id;
+        console.log("userId", userId);
+
         const response = await fetch(`/api/user/${userId}`);
         if (!response.ok) throw new Error("Failed to fetch rankings");
 
@@ -58,8 +53,8 @@ export default function Page() {
       }
     };
 
-    if (userId) fetchRankings();
-  }, [userId]);
+    fetchRankings();
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
