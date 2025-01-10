@@ -1,17 +1,46 @@
 import prisma from "@/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 import type { Character } from "@/lib/types";
-import type { Tier } from "@prisma/client";
-import type Error from "next/error";
-import { createCharacterRecords } from "@/lib/utils";
+import { createCharacterRecords, getInitialCharacters } from "@/lib/utils";
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { userid: string } }
+) {
+  const urlParams = await params;
+  const userId = urlParams["userid"];
+  if (!userId) {
+    return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
+  }
+
+  const rankings = await prisma.ranking.findMany({
+    where: { userId },
+    orderBy: { rank: "asc" },
+  });
+
+  const characters = await getInitialCharacters();
+
+  const data = characters.map((char) => {
+    const ranking = rankings.find((rank) => rank.characterId === char.id);
+    return {
+      id: char.id,
+      name: char.name,
+      major: char.major,
+      tier: ranking?.tier ?? "F",
+      rank: ranking?.rank ?? 1,
+    };
+  });
+
+  return NextResponse.json(data);
+}
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { "user-id": string } }
+  { params }: { params: { userid: string } }
 ) {
   const rankings = (await req.json()) as Character[];
   const urlParams = await params;
-  const userId = urlParams["user-id"];
+  const userId = urlParams["userid"];
 
   if (typeof userId !== "string" || !Array.isArray(rankings)) {
     return NextResponse.json(
