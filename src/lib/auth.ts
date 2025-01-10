@@ -7,7 +7,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ profile }) {
       if (profile && profile.id) {
-
         const dbUser = await prisma.user.findUnique({
           where: {
             id: profile.id,
@@ -27,11 +26,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, account, profile }) {
       if (account && profile) {
         token.discordId = profile.id; // Discord Snowflake ID
+        token.discordUsername = profile.username; // Discord username
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
+        session.user.username = token.discordUsername as string;
         session.user.id = token.discordId as string;
       }
       return session;
