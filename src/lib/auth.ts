@@ -6,10 +6,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Discord],
   callbacks: {
     async signIn({ profile }) {
-      if (profile) {
+      if (profile && profile.id) {
+
         const dbUser = await prisma.user.findUnique({
           where: {
-            id: profile.id ?? "",
+            id: profile.id,
           },
         });
 
