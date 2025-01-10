@@ -33,7 +33,7 @@ export function ClientTierList({ initialCharacters }: Props) {
   // TODO: add a type
   const [characters, setCharacters] = useState<any[]>(() => {
     const savedCharacters = localStorage.getItem("characters");
-    return savedCharacters ? JSON.parse(savedCharacters) : initialCharacters;
+    return savedCharacters.length > 0 ? JSON.parse(savedCharacters) : initialCharacters;
   });
   const [activeId, setActiveId] = useState<string | null>(null);
 
