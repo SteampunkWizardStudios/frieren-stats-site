@@ -6,7 +6,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Discord],
   callbacks: {
     async signIn({ profile }) {
-      console.log(profile);
       if (profile && profile.id) {
         const dbUser = await prisma.user.findUnique({
           where: {
@@ -31,6 +30,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account && profile) {
         token.discordId = profile.id; // Discord Snowflake ID
         token.discordUsername = profile.username; // Discord username
+        token.discordDisplayName = profile.global_name;
+        token.discordAvatar = profile.image_url;
       }
       return token;
     },
@@ -38,6 +39,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (session.user) {
         session.user.username = token.discordUsername as string;
         session.user.id = token.discordId as string;
+        session.user.avatar = token.discordAvatar as string;
+        session.user.displayName = token.discordDisplayName as string;
       }
       return session;
     },
