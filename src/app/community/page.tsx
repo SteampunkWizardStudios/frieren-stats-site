@@ -1,7 +1,7 @@
 export default async function CommunityPage() {
   const communityRanking = await fetch(
     new URL("/api/community", process.env.BASE_URL),
-    { next: { revalidate: 0 } }
+    { next: { revalidate: process.env.NODE_ENV === "development" ? 0 : 3600 } }
   ).then((res) => res.json());
 
   return (
