@@ -1,17 +1,19 @@
 import { CharacterRanking, AggregatedRank } from "./statsTypes";
 
 export default function spearmanRankCorrelation(x: number[], y: number[]): number {
-    const n = x.length;
-    let dSquaredSum = 0;
-
-    for (let i = 0; i < n; i++) {
-        const d = x[i] - y[i];
-        dSquaredSum += d * d;
-    }
-
-    const spearmanCoefficient = 1 - (6 * dSquaredSum) / (n * (n * n - 1));
-    return spearmanCoefficient;
-}
+	const n = x.length;
+	if (n === 0) return 0;
+  
+	let dSquaredSum = 0;
+  
+	for (let i = 0; i < n; i++) {
+	  const d = x[i] - y[i];
+	  dSquaredSum += d * d;
+	}
+  
+	const spearmanCoefficient = 1 - (6 * dSquaredSum) / (n * (n * n - 1));
+	return spearmanCoefficient;
+  }
 
 export function getCharacterCorrelation(character1: string, character2: string, aggregatedRank: AggregatedRank): number {
     const ranks1 = aggregatedRank.get(character1);
