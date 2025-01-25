@@ -1,4 +1,4 @@
-import { Tier } from "@/components/tierlist/Tier";
+import { StaticTier } from "@/components/tierlist/StaticTier";
 import type { Tier as TierType } from "@/lib/types";
 import { type Tier as TierEnum } from "@prisma/client";
 
@@ -11,7 +11,7 @@ const TIERS: TierType[] = [
   { id: "F", title: "F Tier", color: "bg-purple-700" },
 ];
 
-type UserRankings = {
+export type UserRankings = {
   id: string;
   name: string;
   major: boolean;
@@ -34,7 +34,7 @@ export function StaticTierList({ rankings, loading, error }: StaticTierListProps
       <h1 className="text-2xl font-bold mb-4">User Rankings</h1>
       <div className="flex flex-col gap-4">
         {TIERS.map((tier) => (
-          <Tier
+          <StaticTier
             key={tier.id}
             tier={tier}
             disabled={false}

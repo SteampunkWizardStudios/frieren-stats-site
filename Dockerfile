@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:18-alpine
+FROM node:23-alpine3.20
 
 # Set the working directory
 WORKDIR /frieren-stats-site

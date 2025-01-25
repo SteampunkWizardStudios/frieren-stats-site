@@ -1,6 +1,6 @@
 services:
   app:
-    image: node:18-alpine
+    image: node:23-alpine3.20
     working_dir: /frieren-stats-site
     volumes:
       - .:/frieren-stats-site
