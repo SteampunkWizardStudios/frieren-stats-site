@@ -10,7 +10,7 @@ type CharacterCardProps = {
 export function StaticCharacterCard({ character, imagePath }: CharacterCardProps) {
   return (
     <div
-      className={`cursor-grab rounded-lg ${
+      className={`rounded-lg ${
         character.major ? "bg-neutral-500" : "bg-neutral-700"
       } p-4 shadow-md flex items-center gap-4`}
     >
