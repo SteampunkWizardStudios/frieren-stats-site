@@ -13,7 +13,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { characterString1: string; characterString2: string } }
 ) {
-  const { characterString1, characterString2 } = params;
+  const { characterString1, characterString2 } = await params;
 
   if (!characterString1 || !characterString2) {
     return NextResponse.json(
