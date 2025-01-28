@@ -7,10 +7,13 @@ type CharacterCardProps = {
   disabled: boolean;
 };
 
-export function StaticCharacterCard({ character, imagePath }: CharacterCardProps) {
+export function StaticCharacterCard({
+  character,
+  imagePath,
+}: CharacterCardProps) {
   return (
     <div
-      className={`rounded-lg ${
+      className={`rounded-lg  ${
         character.major ? "bg-neutral-500" : "bg-neutral-700"
       } p-4 shadow-md flex items-center gap-4`}
     >
@@ -21,7 +24,9 @@ export function StaticCharacterCard({ character, imagePath }: CharacterCardProps
         width={50}
         height={50}
       />
-      <h3 className="text-neutral-100 font-medium">{character.name}</h3>
+      <h3 className="text-neutral-100 font-medium truncate-with-expansion">
+        {character.name}
+      </h3>
     </div>
   );
 }

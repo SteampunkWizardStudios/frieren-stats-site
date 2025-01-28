@@ -154,3 +154,19 @@ body {
 .delete:hover {
   background-color: hsl(244.5, 57.9%, 40.6%);
 }
+
+.truncate-with-expansion {
+  display: inline-block;
+  max-width: 200px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.2;
+  text-align: center;
+  
+  /* Handle truncation after two lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
