@@ -157,7 +157,8 @@ body {
 
 .truncate-with-expansion {
   display: inline-block;
-  max-width: 200px;
+  max-width: 100px; 
+  min-width: 100px;
   white-space: normal;
   overflow-wrap: break-word;
   line-height: 1.2;
