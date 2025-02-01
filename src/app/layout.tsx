@@ -5,6 +5,15 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import NavigationMenu from "@/components/navigationMenu";
 
+import { Cinzel } from 'next/font/google'
+ 
+// If loading a variable font, you don't need to specify the font weight
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cinzel',
+})
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -29,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
+        className={`${cinzel.variable} ${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
       >
         <Toaster />
         <ThemeProvider
