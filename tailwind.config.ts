@@ -53,9 +53,6 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
-		frieren: {
-			green: "linear-gradient(0deg, rgba(var(--color-blue),1) 0%, rgba(var(--color-green),1) 100%)"
-		}
       },
       borderRadius: {
         lg: "var(--radius)",
