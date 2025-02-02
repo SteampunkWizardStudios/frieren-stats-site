@@ -38,12 +38,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${cinzel.variable} ${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
+        className={`${cinzel.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >

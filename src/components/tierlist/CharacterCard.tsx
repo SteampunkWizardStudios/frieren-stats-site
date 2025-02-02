@@ -31,7 +31,7 @@ export function CharacterCard({
       {...listeners}
       {...attributes}
       className={`cursor-grab rounded-lg ${
-        character.major ? "bg-neutral-500" : "bg-neutral-700"
+        character.major ? "bg-neutral-500" : "bg-neutral-400"
       } p-4 shadow-md flex items-center gap-4`}
       style={style}
     >
