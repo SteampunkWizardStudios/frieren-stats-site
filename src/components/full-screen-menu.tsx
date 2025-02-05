@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/users", label: "Search Users" },
   { href: "/similarity", label: "Ranking Similarity" },
   { href: "/correlation", label: "Character Correlation" },
+  { href: "/rank", label: "Rank" },
 ];
 
 export default function FullScreenMenu() {
@@ -23,7 +24,11 @@ export default function FullScreenMenu() {
         onClick={toggleMenu}
         variant="ghost"
         size="icon"
-        className="fixed top-4 right-4 z-50 p-2 text-primary hover:text-primary/80 focus:outline-none"
+        className={`fixed top-4 right-4 z-50 p-2 focus:outline-none transition-colors duration-200 ${
+          isOpen
+            ? "text-white hover:text-white/80"
+            : "text-primary hover:text-primary/80 bg-frieren-green/20 hover:bg-frieren-green/30"
+        }`}
         aria-label="Toggle menu"
       >
         {isOpen ? (
@@ -61,7 +66,8 @@ export default function FullScreenMenu() {
       </Button>
 
       <div
-        className={`fixed inset-0 z-40 flex items-center justify-center bg-slate-800/95 transition-opacity duration-300 ease-in-out ${
+        onClick={toggleMenu}
+        className={`fixed inset-0 z-40 flex items-center justify-center bg-gradient-to-br from-green-700 to-blue-600/60 transition-opacity duration-300 ease-in-out ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -71,7 +77,7 @@ export default function FullScreenMenu() {
               <li key={link.href} className="my-6">
                 <Link
                   href={link.href}
-                  className="text-4xl font-bold text-foreground bg-frieren-green hover:text-primary transition-colors duration-200"
+                  className="text-4xl font-bold text-white hover:text-white/80 transition-colors duration-200"
                   onClick={toggleMenu}
                 >
                   {link.label}

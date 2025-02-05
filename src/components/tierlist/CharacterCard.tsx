@@ -42,7 +42,9 @@ export function CharacterCard({
         width={50}
         height={50}
       />
-      <h3 className="text-neutral-100 font-medium">{character.name}</h3>
+      <h3 className="text-neutral-100 font-medium truncate-with-expansion">
+        {character.name}
+      </h3>
     </div>
   );
 }
