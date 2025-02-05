@@ -5,7 +5,7 @@
 body {
   /* font-family: Arial, Helvetica, sans-serif; */
   font-family: "Cinzel", font-cinzel;
-  @apply bg-white
+  @apply bg-white;
 }
 
 @layer utilities {
@@ -18,15 +18,19 @@ body {
       rgba(1, 173, 175, 1) 0%,
       rgba(4, 170, 114, 1) 100%
     );
-	background-clip: text;
-	-webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
 @layer base {
   :root {
-	--frieren-gold: #DCCD85;
-	--frieren-green: linear-gradient(0deg, rgba(1, 173, 175, 1) 0%, rgba(4, 170, 114, 1) 100%);
+    --frieren-gold: #dccd85;
+    --frieren-green: linear-gradient(
+      0deg,
+      rgba(1, 173, 175, 1) 0%,
+      rgba(4, 170, 114, 1) 100%
+    );
     --background: 240 10% 3.9%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -170,13 +174,13 @@ body {
 
 .truncate-with-expansion {
   display: inline-block;
-  max-width: 100px; 
+  max-width: 100px;
   min-width: 100px;
   white-space: normal;
   overflow-wrap: break-word;
   line-height: 1.2;
   text-align: center;
-  
+
   /* Handle truncation after two lines */
   display: -webkit-box;
   -webkit-line-clamp: 2;
