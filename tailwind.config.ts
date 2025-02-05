@@ -9,7 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        cinzel: "var(--font-cinzel)",
+      },
       colors: {
+		'frieren-gold': "var(--frieren-gold)",
+        'frieren-green': "var(--frieren-green)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

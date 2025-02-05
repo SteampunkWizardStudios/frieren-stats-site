@@ -12,15 +12,15 @@ const NavLinks = new Map([
 export default function NavigationMenu() {
   return (
     <>
-      <div className="fixed top-0 left-0 h-full min-w-70 bg-slate-700 flex flex-col items-start justify-start gap-4 py-4">
+      <div className="fixed top-0 left-0 h-full min-w-70 bg-white flex flex-col items-start justify-start gap-4 py-4 shadow-lg">
         {[...NavLinks.entries()].map(([name, path]) => (
           <Link
-            href={path}
-            key={name}
-            className="hover:text-emerald-500 hover:bg-slate-800 p-1 mx-2 rounded-lg"
-          >
-            {name}
-          </Link>
+		  href={path}
+		  key={name}
+		  className="hover:bg-slate-200 p-1 mx-2 rounded-lg text-xl"
+		>
+		  <span className="bg-frieren-green">{name}</span>
+		</Link>
         ))}
         <div className="mt-auto"></div> {/* Spacer */}
         <NavSignin />

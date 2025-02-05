@@ -13,8 +13,10 @@ export function StaticCharacterCard({
 }: CharacterCardProps) {
   return (
     <div
-      className={`rounded-lg  ${
-        character.major ? "bg-neutral-500" : "bg-neutral-700"
+      className={`rounded-lg ${
+        character.major
+          ? "bg-neutral-500"
+          : "bg-neutral-400"
       } p-4 shadow-md flex items-center gap-4`}
     >
       <Image

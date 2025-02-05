@@ -12,16 +12,15 @@ import { Tier } from "@/components/tierlist/Tier";
 import { CharacterCard } from "@/components/tierlist/CharacterCard";
 import { arrayMove } from "@dnd-kit/sortable";
 import { getSession } from "next-auth/react";
-import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 
 const TIERS: TierType[] = [
-  { id: "S", title: "S Tier", color: "bg-red-700" },
-  { id: "A", title: "A Tier", color: "bg-orange-700" },
-  { id: "B", title: "B Tier", color: "bg-yellow-700" },
-  { id: "C", title: "C Tier", color: "bg-green-700" },
-  { id: "D", title: "D Tier", color: "bg-blue-700" },
-  { id: "F", title: "F Tier", color: "bg-purple-700" },
+  { id: "S", title: "S Tier", color: "bg-red-600" },
+  { id: "A", title: "A Tier", color: "bg-orange-600" },
+  { id: "B", title: "B Tier", color: "bg-yellow-600" },
+  { id: "C", title: "C Tier", color: "bg-green-600" },
+  { id: "D", title: "D Tier", color: "bg-blue-600" },
+  { id: "F", title: "F Tier", color: "bg-purple-600" },
 ];
 
 interface Props {

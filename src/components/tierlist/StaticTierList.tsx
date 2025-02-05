@@ -3,12 +3,12 @@ import type { Tier as TierType } from "@/lib/types";
 import { type Tier as TierEnum } from "@prisma/client";
 
 const TIERS: TierType[] = [
-  { id: "S", title: "S Tier", color: "bg-red-700" },
-  { id: "A", title: "A Tier", color: "bg-orange-700" },
-  { id: "B", title: "B Tier", color: "bg-yellow-700" },
-  { id: "C", title: "C Tier", color: "bg-green-700" },
-  { id: "D", title: "D Tier", color: "bg-blue-700" },
-  { id: "F", title: "F Tier", color: "bg-purple-700" },
+  { id: "S", title: "S Tier", color: "bg-red-600" },
+  { id: "A", title: "A Tier", color: "bg-orange-600" },
+  { id: "B", title: "B Tier", color: "bg-yellow-600" },
+  { id: "C", title: "C Tier", color: "bg-green-600" },
+  { id: "D", title: "D Tier", color: "bg-blue-600" },
+  { id: "F", title: "F Tier", color: "bg-purple-600" },
 ];
 
 export type UserRankings = {
@@ -31,7 +31,7 @@ export function StaticTierList({ rankings, loading, error }: StaticTierListProps
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4">User Rankings</h1>
+      <h1 className="text-2xl font-bold mb-4 bg-frieren-green">User Rankings  - Make this a prop</h1>
       <div className="flex flex-col gap-4">
         {TIERS.map((tier) => (
           <StaticTier
