@@ -5,7 +5,7 @@ services:
     volumes:
       - .:/frieren-stats-site
     build: .
-    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+    entrypoint: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/mydatabase
       WATCHPACK_POLLING: true
