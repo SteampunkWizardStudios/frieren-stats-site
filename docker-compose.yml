@@ -4,14 +4,18 @@ services:
     working_dir: /frieren-stats-site
     volumes:
       - .:/frieren-stats-site
-    build: .
-    entrypoint: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+      - /frieren-stats-site/node_modules # Prevents node_modules from being overwritten by the container during development
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432/mydatabase
       WATCHPACK_POLLING: true
     ports:
       - "3000:3000"
       - "5555:5555"
+    depends_on:
+      - db
   db:
     image: postgres:14
     environment:
