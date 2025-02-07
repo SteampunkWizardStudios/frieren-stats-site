@@ -24,10 +24,10 @@ export default function FullScreenMenu() {
         onClick={toggleMenu}
         variant="ghost"
         size="icon"
-        className={`fixed top-4 right-4 z-50 p-2 focus:outline-none transition-colors duration-200 ${
+        className={`fixed top-4 right-4 z-50 p-2 focus:outline-hidden transition-colors duration-200 ${
           isOpen
-            ? "text-white hover:text-white/80"
-            : "text-primary hover:text-primary/80 bg-frieren-green/20 hover:bg-frieren-green/30"
+            ? "text-white hover:text-black"
+            : "text-primary bg-frieren-green/20 hover:bg-frieren-green/30"
         }`}
         aria-label="Toggle menu"
       >
@@ -67,7 +67,7 @@ export default function FullScreenMenu() {
 
       <div
         onClick={toggleMenu}
-        className={`fixed inset-0 z-40 flex items-center justify-center bg-gradient-to-br from-green-700 to-blue-600/60 transition-opacity duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 flex items-center justify-center bg-linear-to-br from-green-700 to-blue-600/60 transition-opacity duration-300 ease-in-out ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
