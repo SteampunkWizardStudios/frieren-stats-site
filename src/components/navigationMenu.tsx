@@ -19,7 +19,7 @@ export default function NavigationMenu() {
 		  key={name}
 		  className="hover:bg-slate-200 p-1 mx-2 rounded-lg text-xl"
 		>
-		  <span className="bg-frieren-green">{name}</span>
+		  <span className="text-frieren-gradient-bg-clip">{name}</span>
 		</Link>
         ))}
         <div className="mt-auto"></div> {/* Spacer */}

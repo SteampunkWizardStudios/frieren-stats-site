@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -7,6 +7,8 @@
 
   --color-frieren-gold: var(--frieren-gold);
   --color-frieren-green: var(--frieren-green);
+  --color-frieren-blue: var(--frieren-blue);
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
@@ -50,12 +52,8 @@
   text-wrap: balance;
 }
 
-@utility bg-frieren-green {
-  background: linear-gradient(
-    0deg,
-    rgba(1, 173, 175, 1) 0%,
-    rgba(4, 170, 114, 1) 100%
-  );
+@utility text-frieren-gradient-bg-clip {
+  background: var(--frieren-gradient);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -63,19 +61,22 @@
 @layer utilities {
   body {
     /* font-family: Arial, Helvetica, sans-serif; */
-    font-family: 'Cinzel', font-cinzel;
+    font-family: "Cinzel", font-cinzel;
     @apply bg-white;
   }
 }
 
 @layer base {
   :root {
-    --frieren-gold: #dccd85;
-    --frieren-green: linear-gradient(
-      0deg,
-      rgba(1, 173, 175, 1) 0%,
-      rgba(4, 170, 114, 1) 100%
+    --frieren-blue: oklch(67.77% 0.1153 196.24);
+    --frieren-green: oklch(65.2% 0.1447 160.91);
+    --frieren-gold: oklch(84.44% 0.0933 97.86);
+    --frieren-gradient: linear-gradient(
+      90deg,
+      var(--frieren-blue) 0%,
+      var(--frieren-green) 100%
     );
+
     --background: 240 10% 3.9%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;

@@ -26,8 +26,8 @@ export default function FullScreenMenu() {
         size="icon"
         className={`fixed top-4 right-4 z-50 p-2 focus:outline-hidden transition-colors duration-200 ${
           isOpen
-            ? "text-white hover:text-white/80"
-            : "text-primary hover:text-primary/80 bg-frieren-green/20 hover:bg-frieren-green/30"
+            ? "text-white hover:text-black"
+            : "text-primary bg-frieren-green/20 hover:bg-frieren-green/30"
         }`}
         aria-label="Toggle menu"
       >

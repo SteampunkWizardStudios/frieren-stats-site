@@ -31,7 +31,7 @@ export function StaticTierList({ rankings, loading, error }: StaticTierListProps
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 bg-frieren-green">Tierlist title</h1> {/* We need a way to have the title aligned with the tierlist without requiring one in every version of the static tierlist */}
+      <h1 className="text-2xl font-bold mb-4 text-frieren-gradient-bg-clip">Tierlist title</h1> {/* We need a way to have the title aligned with the tierlist without requiring one in every version of the static tierlist */}
       <div className="flex flex-col gap-4">
         {TIERS.map((tier) => (
           <StaticTier
