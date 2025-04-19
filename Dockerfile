@@ -2,8 +2,6 @@ FROM node:23-alpine3.20
 
 WORKDIR /frieren-stats-site
 
-ENV NPM_CONFIG_LOGLEVEL=verbose
-
 COPY package.json ./
 COPY package-lock.json ./
 
