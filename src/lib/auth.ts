@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import Discord from "next-auth/providers/discord";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   providers: [Discord],
   callbacks: {
     async signIn({ profile }) {
