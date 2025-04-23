@@ -1,15 +1,10 @@
-"use client"
-
-import { useParams } from 'next/navigation';
 import CharacterToolbar from "./CharacterToolbar";
 
-export default function CharacterPage() {
-  const params = useParams();
-  const name = params.name;
-
-  return (
-    <>
-      {name && <CharacterToolbar selectedCharacter={name as string} />}
-    </>
-  );
+export default async function CharacterPage({
+  params,
+}: {
+  params: Promise<{ name: string }>;
+}) {
+  const { name } = await params;
+  return <>{name && <CharacterToolbar selectedCharacter={name} />}</>;
 }
