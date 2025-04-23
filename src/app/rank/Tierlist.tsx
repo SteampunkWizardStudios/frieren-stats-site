@@ -14,6 +14,8 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { getSession } from "next-auth/react";
 import { toast } from "sonner";
 
+// there's probably something that could be improved with this but it is what it is
+
 const TIERS: TierType[] = [
   { id: "S", title: "S Tier", color: "bg-red-600" },
   { id: "A", title: "A Tier", color: "bg-orange-600" },

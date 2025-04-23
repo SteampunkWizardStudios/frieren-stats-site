@@ -5,6 +5,8 @@ import { FlexibleSelector, type SelectableItem } from "@/components/selector";
 import type { Character } from "@/lib/types";
 import { getInitialCharacters } from "@/lib/utils";
 
+// this one is not actually used in the final vision of the site, maybe it could be
+
 export default function Home() {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(

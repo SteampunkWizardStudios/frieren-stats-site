@@ -5,6 +5,8 @@ import { StaticTierList } from "@/components/tierlist/StaticTierList";
 import { getSession } from "next-auth/react";
 import { type Tier as TierEnum } from "@prisma/client";
 
+// this component should be made server side, as it is not interactive, also because it will reduce code duplication with list/[userid]/page.tsx
+
 type UserRankings = {
   id: string;
   name: string;
