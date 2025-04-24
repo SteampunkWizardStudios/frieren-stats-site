@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import NavigationMenu from "@/components/navigationMenu";
 
 import { Cinzel } from "next/font/google";
 import FullScreenMenu from "@/components/full-screen-menu";
