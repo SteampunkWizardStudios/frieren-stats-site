@@ -8,7 +8,9 @@ const _messages = [
   "Zoltraak!",
 ];
 
-const _gifs = ["/loading.gif", "/kuru-kuru.gif", "/warming-by-fire.gif"].map(gif => "/loading" + gif)
+const _gifs = ["/loading.gif", "/kuru-kuru.gif", "/warming-by-fire.gif"].map(
+  (gif) => "/loading" + gif
+);
 
 // Ignore the things at top, you need "use client" and useState to use them
 
@@ -20,7 +22,7 @@ export default function Loading() {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center text-black text-center">
       <Image
-        src="/loading.gif"
+        src="/loading/loading.gif"
         alt="Loading..."
         width={256}
         height={256}
