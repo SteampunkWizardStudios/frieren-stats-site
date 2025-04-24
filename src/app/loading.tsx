@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const messages = [
+const _messages = [
   "Waking up the hamsters...",
   "Generating witty loading message...",
   "Polishing the pixels...",
@@ -8,11 +8,11 @@ const messages = [
   "Zoltraak!",
 ];
 
-const gifs = ["/loading.gif", "/kuru-kuru.gif", "/warming-by-fire.gif"];
+const _gifs = ["/loading.gif", "/kuru-kuru.gif", "/warming-by-fire.gif"].map(gif => "/loading" + gif)
 
 // Ignore the things at top, you need "use client" and useState to use them
 
-function randomItem<T>(array: T[]) {
+function _randomItem<T>(array: T[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
